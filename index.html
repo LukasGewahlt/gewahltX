@@ -382,4 +382,108 @@ footer {
   console.log('Gewählt conectado ao Supabase!');
 </script>
 </body> 
+  <section id="gewahlt-auth" style="
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #171717;
+  border: 1px solid #8b0000;
+  border-radius: 16px;
+  color: white;
+  font-family: Arial, sans-serif;
+">
+  <h2 style="text-align:center;color:#ff3030;">
+    GEWÄHLT
+  </h2>
+
+  <p style="text-align:center;">
+    Crie sua identidade.
+  </p>
+
+  <input
+    id="gw-email"
+    type="email"
+    placeholder="Seu e-mail"
+    autocomplete="email"
+    style="width:100%;box-sizing:border-box;padding:13px;margin:8px 0;background:#252525;color:white;border:1px solid #444;border-radius:8px;"
+  >
+
+  <input
+    id="gw-password"
+    type="password"
+    placeholder="Sua senha (mínimo 6 caracteres)"
+    autocomplete="current-password"
+    style="width:100%;box-sizing:border-box;padding:13px;margin:8px 0;background:#252525;color:white;border:1px solid #444;border-radius:8px;"
+  >
+
+  <button
+    onclick="gwSignup()"
+    style="width:100%;padding:13px;margin-top:12px;background:#b00020;color:white;border:0;border-radius:8px;font-weight:bold;"
+  >
+    CRIAR CONTA
+  </button>
+
+  <button
+    onclick="gwLogin()"
+    style="width:100%;padding:13px;margin-top:10px;background:#292929;color:white;border:1px solid #555;border-radius:8px;"
+  >
+    ENTRAR
+  </button>
+
+  <p id="gw-message" style="text-align:center;overflow-wrap:anywhere;"></p>
+</section>
+
+<script>
+async function gwSignup() {
+  const email = document.getElementById('gw-email').value.trim();
+  const password = document.getElementById('gw-password').value;
+  const message = document.getElementById('gw-message');
+
+  if (!email || password.length < 6) {
+    message.textContent = 'Informe um e-mail válido e uma senha com pelo menos 6 caracteres.';
+    return;
+  }
+
+  message.textContent = 'Criando sua conta...';
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email,
+    password
+  });
+
+  if (error) {
+    message.textContent = 'Erro: ' + error.message;
+    return;
+  }
+
+  message.textContent = data.session
+    ? 'Conta criada! Você já está conectado.'
+    : 'Cadastro iniciado! Confira seu e-mail para confirmar a conta, se solicitado.';
+}
+
+async function gwLogin() {
+  const email = document.getElementById('gw-email').value.trim();
+  const password = document.getElementById('gw-password').value;
+  const message = document.getElementById('gw-message');
+
+  if (!email || !password) {
+    message.textContent = 'Preencha seu e-mail e sua senha.';
+    return;
+  }
+
+  message.textContent = 'Entrando...';
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    message.textContent = 'Erro: ' + error.message;
+    return;
+  }
+
+  message.textContent = 'Login realizado! Bem-vindo ao Gewählt.';
+}
+      </script>
   </html>
