@@ -3,269 +3,286 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b090b">
-<title>Gewählt — Seu mundo, seu perfil</title>
+<meta name="theme-color" content="#10090d">
+<meta name="description" content="Gewählt — sua identidade, suas regras.">
+<title>Gewählt — Sua identidade</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root {
-  --bg: #0b090b;
-  --card: #151115;
-  --red: #ff2348;
-  --text: #f7f2f4;
-  --muted: #a79ba2;
+  --bg: #10090d;
+  --card: #1b1117;
+  --red: #e51b43;
+  --text: #ffffff;
+  --muted: #b9aab0;
+  --border: #39212b;
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background:
-    radial-gradient(ellipse at 50% 0%, #47101e 0%, transparent 45%),
-    var(--bg);
-  color: var(--text);
+  margin: 0;
   min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at top, #40101f 0%, transparent 48%),
+    var(--bg);
+  font-family: Arial, sans-serif;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 7%;
-  border-bottom: 1px solid #ffffff10;
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
 }
 
 .logo {
   font-size: 25px;
   font-weight: 900;
   letter-spacing: 2px;
+  color: white;
 }
 
 .logo span {
   color: var(--red);
 }
 
-nav {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-nav a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-button, .button {
-  border: none;
-  cursor: pointer;
-  border-radius: 10px;
-  padding: 13px 19px;
-  font-weight: bold;
-  font-size: 14px;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.primary {
-  background: var(--red);
+.small-button {
+  padding: 10px 13px;
   color: white;
-  box-shadow: 0 0 24px #ff234826;
-}
-
-.secondary {
-  color: white;
-  background: #ffffff0a;
-  border: 1px solid #ffffff20;
+  background: #24131b;
+  border: 1px solid var(--border);
+  border-radius: 9px;
 }
 
 main {
-  width: 100%;
-  max-width: 1050px;
-  margin: auto;
-  padding: 65px 22px;
+  width: min(100% - 30px, 900px);
+  margin: 35px auto;
 }
 
 .hero {
+  padding: 45px 10px;
   text-align: center;
-  padding: 35px 0 55px;
 }
 
 .badge {
   display: inline-block;
-  border: 1px solid #ff23484a;
-  color: #ff6680;
-  background: #ff23480c;
-  border-radius: 30px;
-  padding: 9px 15px;
+  padding: 8px 12px;
+  color: #ff9eb0;
+  background: #36111e;
+  border: 1px solid #692033;
+  border-radius: 50px;
   font-size: 12px;
-  margin-bottom: 25px;
 }
 
 h1 {
-  font-size: clamp(38px, 8vw, 68px);
-  line-height: 1.08;
-  letter-spacing: -2px;
-  margin-bottom: 22px;
+  font-size: clamp(35px, 8vw, 65px);
+  margin: 22px 0 15px;
 }
 
 h1 span {
   color: var(--red);
-  text-shadow: 0 0 35px #ff23483d;
 }
 
-.description {
+p {
   color: var(--muted);
-  font-size: 16px;
-  line-height: 1.8;
-  max-width: 570px;
-  margin: 0 auto 28px;
-}
-
-.actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 27px;
-  margin-bottom: 12px;
-}
-
-.section-description {
-  text-align: center;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 30px;
-  font-size: 14px;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 17px;
+  line-height: 1.6;
 }
 
 .card {
-  background: linear-gradient(145deg, #191319, #100d10);
-  border: 1px solid #ffffff12;
+  background: rgba(27, 17, 23, 0.96);
+  border: 1px solid var(--border);
   border-radius: 17px;
-  padding: 24px;
-  transition: .2s;
+  padding: 22px;
+  margin-bottom: 20px;
 }
 
-.card:hover {
-  border-color: #ff234860;
-  transform: translateY(-3px);
+.card h2, .card h3 {
+  margin-top: 0;
 }
 
-.icon {
-  font-size: 28px;
-  margin-bottom: 18px;
+.auth-card {
+  max-width: 440px;
+  margin: 0 auto 35px;
 }
 
-.card h3 {
-  margin-bottom: 10px;
-  font-size: 17px;
-}
-
-.card p {
-  color: var(--muted);
+label {
+  display: block;
+  margin: 15px 0 7px;
   font-size: 13px;
-  line-height: 1.7;
+  color: #eadde2;
 }
 
-.preview {
-  margin-top: 55px;
-  padding: 27px;
-  border: 1px solid #ffffff12;
-  background: #ffffff05;
+input, textarea, select {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  color: white;
+  background: #100c10;
+  border: 1px solid #49303a;
+  border-radius: 9px;
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--red);
+}
+
+textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.primary {
+  width: 100%;
+  padding: 14px;
+  margin-top: 14px;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(100deg, #a30c2d, #ed2349);
+  border: none;
+  border-radius: 9px;
+}
+
+.secondary {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  color: white;
+  background: #291923;
+  border: 1px solid #553040;
+  border-radius: 9px;
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.message {
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 13px;
+  margin: 25px 0;
+}
+
+.feature {
+  padding: 18px;
+  background: #1a1117;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+
+.feature strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.profile {
+  max-width: 550px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #171117;
+  border: 1px solid var(--border);
   border-radius: 20px;
+}
+
+.profile-cover {
+  height: 145px;
+  background:
+    radial-gradient(ellipse at top, #76152e, transparent 75%),
+    #211019;
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-content {
+  padding: 20px;
   text-align: center;
 }
 
 .avatar {
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ff2348, #380b18);
+  width: 100px;
+  height: 100px;
+  margin: -70px auto 15px;
+  position: relative;
   display: grid;
   place-items: center;
-  margin: 0 auto 15px;
+  background: #321522;
+  border: 4px solid #171117;
+  border-radius: 50%;
+  overflow: hidden;
   font-size: 30px;
-  font-weight: 900;
-  box-shadow: 0 0 30px #ff234825;
+  font-weight: bold;
 }
 
-.preview p {
-  color: var(--muted);
-  margin: 9px 0 20px;
-  font-size: 14px;
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.socials {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+.profile-link {
+  display: block;
+  margin-top: 12px;
+  padding: 14px;
+  color: white;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  background: #28151f;
+  border: 1px solid #492333;
+  border-radius: 11px;
+  transition: transform .2s, background .2s;
 }
 
-.socials span {
-  background: #ffffff0a;
-  border: 1px solid #ffffff12;
-  padding: 10px 14px;
-  border-radius: 9px;
-  font-size: 12px;
+.profile-link:hover {
+  transform: translateY(-2px);
+  background: #451628;
 }
 
 footer {
+  padding: 25px;
   text-align: center;
-  border-top: 1px solid #ffffff10;
-  padding: 25px 15px;
-  color: var(--muted);
+  color: #8f7d85;
   font-size: 12px;
 }
 
-@media (max-width: 650px) {
-  header {
-    padding: 19px 5%;
-  }
+.small {
+  font-size: 12px;
+}
 
-  nav {
-    gap: 10px;
-  }
+a {
+  color: #ff829b;
+}
 
-  nav a {
-    display: none;
-  }
-
-  nav .button {
-    padding: 11px 13px;
-    font-size: 12px;
-  }
-
-  main {
-    padding: 48px 18px;
-  }
-
-  .cards {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    padding: 22px;
-  }
-
-  h1 {
-    letter-spacing: -1px;
-  }
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 22px 0;
 }
 </style>
 </head>
@@ -273,217 +290,726 @@ footer {
 <body>
 
 <header>
-  <div class="logo">GEWÄHLT<span>.</span></div>
-
-  <nav>
-    <a href="#recursos">Recursos</a>
-    <a href="#exemplo">Exemplo</a>
-    <button class="primary" onclick="alert('O cadastro será ativado na próxima etapa!')">
-      Criar meu perfil
-    </button>
-  </nav>
+  <div class="logo">GEW<span>Ä</span>HLT</div>
+  <button id="top-login" class="small-button">Entrar</button>
 </header>
 
 <main>
 
-  <section class="hero">
-    <div class="badge">✦ SEU ESPAÇO. SUA IDENTIDADE.</div>
+  <section id="home">
+    <div class="hero">
+      <span class="badge">SUA IDENTIDADE DIGITAL</span>
+      <h1>Seu mundo.<br>Sua <span>identidade.</span></h1>
+      <p>
+        Reúna suas redes sociais, divulgue seus projetos
+        e crie uma página com a sua personalidade.
+      </p>
+    </div>
 
-    <h1>Seu mundo.<br>Sua página.<br><span>Suas regras.</span></h1>
+    <div class="features">
+      <div class="feature">
+        <strong>🔗 Seus links</strong>
+        <p>Reúna Instagram, TikTok, Discord, Telegram e outras redes.</p>
+      </div>
+      <div class="feature">
+        <strong>🎨 Seu estilo</strong>
+        <p>Personalize seu nome, descrição, imagem e aparência.</p>
+      </div>
+      <div class="feature">
+        <strong>🌐 Seu espaço</strong>
+        <p>Compartilhe sua página com um link próprio do Gewählt.</p>
+      </div>
+    </div>
+  </section>
 
-    <p class="description">
-      Reúna suas redes sociais, grupos, músicas e muito mais
-      em um perfil único. Personalize cada detalhe e compartilhe
-      sua identidade com o mundo.
+  <section id="auth-section" class="card auth-card">
+    <h2 id="auth-title">Entre para o Gewählt</h2>
+    <p id="auth-description">
+      Crie sua conta e monte sua identidade digital.
     </p>
 
-    <div class="actions">
-      <button class="primary"
-        onclick="alert('Vamos construir o sistema de cadastro juntos!')">
-        ✦ Quero criar meu perfil
+    <form id="auth-form">
+      <label for="email">E-mail</label>
+      <input
+        id="email"
+        type="email"
+        autocomplete="email"
+        placeholder="voce@email.com"
+        required
+      >
+
+      <label for="password">Senha</label>
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        minlength="6"
+        placeholder="Mínimo de 6 caracteres"
+        required
+      >
+
+      <button id="signup-button" class="primary" type="button">
+        CRIAR CONTA
       </button>
 
-      <a class="button secondary" href="#recursos">
-        Conhecer a plataforma
-      </a>
+      <button id="login-button" class="secondary" type="submit">
+        ENTRAR
+      </button>
+    </form>
+
+    <p id="auth-message" class="message" role="status"></p>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="card">
+      <h2>Seu painel</h2>
+      <p>Configure sua identidade e publique seu perfil.</p>
+      <p id="account-email" class="small"></p>
+
+      <form id="profile-form">
+        <label for="username">Nome de usuário</label>
+        <input
+          id="username"
+          maxlength="30"
+          pattern="[A-Za-z0-9_-]+"
+          placeholder="exemplo123"
+          required
+        >
+        <p class="small">
+          Use letras sem acento, números, hífen ou sublinhado.
+        </p>
+
+        <label for="display-name">Nome de exibição</label>
+        <input
+          id="display-name"
+          maxlength="60"
+          placeholder="Seu nome"
+        >
+
+        <label for="bio">Descrição</label>
+        <textarea
+          id="bio"
+          maxlength="300"
+          placeholder="Escreva algo sobre você..."
+        ></textarea>
+
+        <label for="avatar-url">Link da foto de perfil</label>
+        <input
+          id="avatar-url"
+          type="url"
+          placeholder="https://exemplo.com/foto.jpg"
+        >
+
+        <label for="background-url">Link da imagem de fundo (opcional)</label>
+        <input
+          id="background-url"
+          type="url"
+          placeholder="https://exemplo.com/fundo.jpg"
+        >
+
+        <label for="theme">Estilo</label>
+        <select id="theme">
+          <option value="dark">Dark vermelho</option>
+          <option value="purple">Roxo</option>
+          <option value="blue">Azul</option>
+          <option value="green">Verde</option>
+          <option value="light">Claro</option>
+        </select>
+
+        <label for="links">Seus links</label>
+        <textarea
+          id="links"
+          placeholder="Instagram | https://instagram.com/seuusuario&#10;Meu Telegram | https://t.me/seucanal&#10;Meu Discord | https://discord.gg/seulink"
+        ></textarea>
+        <p class="small">
+          Coloque um link por linha no formato: nome | endereço.
+          Use endereços completos começando com https://.
+        </p>
+
+        <button id="save-button" class="primary" type="submit">
+          SALVAR MEU PERFIL
+        </button>
+      </form>
+
+      <p id="profile-message" class="message" role="status"></p>
+
+      <div id="share-area" class="hidden">
+        <hr>
+        <h3>Seu perfil publicado</h3>
+        <input id="share-url" readonly>
+        <button id="copy-button" class="secondary" type="button">
+          COPIAR LINK DO PERFIL
+        </button>
+        <a id="open-profile" class="profile-link" href="#">
+          VISUALIZAR PERFIL
+        </a>
+      </div>
+
+      <button id="logout-button" class="secondary" type="button">
+        SAIR DA CONTA
+      </button>
     </div>
   </section>
 
-  <section id="recursos">
-    <h2 class="section-title">Muito além de um link</h2>
-
-    <p class="section-description">
-      Crie uma página com a sua personalidade.
-      Você escolhe como ela vai ser.
-    </p>
-
-    <div class="cards">
-
-      <article class="card">
-        <div class="icon">🎨</div>
-        <h3>Personalização total</h3>
-        <p>
-          Escolha cores, imagens, fundos, fontes e efeitos
-          para criar um perfil com a sua identidade.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="icon">🔗</div>
-        <h3>Todas as suas redes</h3>
-        <p>
-          Divulgue TikTok, Kwai, Instagram, WhatsApp,
-          Discord, Telegram e outros links.
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="icon">🎵</div>
-        <h3>Música e galeria</h3>
-        <p>
-          Deixe sua página mais pessoal com músicas,
-          imagens e outros elementos visuais.
-        </p>
-      </article>
-
-    </div>
-  </section>
-
-  <section id="exemplo" class="preview">
-    <div class="avatar">G</div>
-
-    <h2>SeuNome</h2>
-
-    <p>Seu espaço na internet. Do seu jeito.</p>
-
-    <div class="socials">
-      <span>♪ Música</span>
-      <span>▶ TikTok</span>
-      <span>✉ WhatsApp</span>
-      <span>🎮 Discord</span>
-    </div>
+  <section id="public-section" class="hidden">
+    <div id="public-profile" class="profile"></div>
+    <p id="public-error" class="message"></p>
+    <button id="back-button" class="secondary" type="button">
+      VOLTAR AO GEWÄHLT
+    </button>
   </section>
 
 </main>
 
 <footer>
-  GEWÄHLT © 2026 — Sua identidade, suas regras.
+  GEWÄHLT · Sua identidade, suas regras.
 </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = 'https://sgakvghlnwygzhfbkccy.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_xwDzkD9bo-xQcNngOLMcwQ_epMoOCxn';
+/*
+  CONEXÃO DO SUPABASE
+  A chave abaixo é a chave pública do projeto.
+  Nunca coloque uma chave service_role neste arquivo.
+*/
 
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+const SUPABASE_URL = 'https://sgakvghlnwygzhfbkccy.supabase.co';
+
+const SUPABASE_KEY =
+  'sb_publishable_xwDzkD9bo-xQcNngOLMcwQ_epMoOCxn';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
-  console.log('Gewählt conectado ao Supabase!');
-</script>
-</body> 
-  <section id="gewahlt-auth" style="
-  max-width: 420px;
-  margin: 40px auto;
-  padding: 24px;
-  background: #171717;
-  border: 1px solid #8b0000;
-  border-radius: 16px;
-  color: white;
-  font-family: Arial, sans-serif;
-">
-  <h2 style="text-align:center;color:#ff3030;">
-    GEWÄHLT
-  </h2>
 
-  <p style="text-align:center;">
-    Crie sua identidade.
-  </p>
+const $ = id => document.getElementById(id);
 
-  <input
-    id="gw-email"
-    type="email"
-    placeholder="Seu e-mail"
-    autocomplete="email"
-    style="width:100%;box-sizing:border-box;padding:13px;margin:8px 0;background:#252525;color:white;border:1px solid #444;border-radius:8px;"
-  >
+function showMessage(id, text) {
+  $(id).textContent = text;
+}
 
-  <input
-    id="gw-password"
-    type="password"
-    placeholder="Sua senha (mínimo 6 caracteres)"
-    autocomplete="current-password"
-    style="width:100%;box-sizing:border-box;padding:13px;margin:8px 0;background:#252525;color:white;border:1px solid #444;border-radius:8px;"
-  >
+function safeHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    if (url.protocol === 'https:' || url.protocol === 'http:') {
+      return url.href;
+    }
+  } catch (_) {}
+  return null;
+}
 
-  <button
-    onclick="gwSignup()"
-    style="width:100%;padding:13px;margin-top:12px;background:#b00020;color:white;border:0;border-radius:8px;font-weight:bold;"
-  >
-    CRIAR CONTA
-  </button>
+function validUsername(value) {
+  return /^[a-zA-Z0-9_-]{3,30}$/.test(value);
+}
 
-  <button
-    onclick="gwLogin()"
-    style="width:100%;padding:13px;margin-top:10px;background:#292929;color:white;border:1px solid #555;border-radius:8px;"
-  >
-    ENTRAR
-  </button>
+function parseLinks(text) {
+  const links = [];
 
-  <p id="gw-message" style="text-align:center;overflow-wrap:anywhere;"></p>
-</section>
+  for (const line of text.split('\n')) {
+    if (!line.trim()) continue;
 
-<script>
-async function gwSignup() {
-  const email = document.getElementById('gw-email').value.trim();
-  const password = document.getElementById('gw-password').value;
-  const message = document.getElementById('gw-message');
+    const separator = line.indexOf('|');
+
+    if (separator < 1) {
+      throw new Error(
+        'Confira seus links. Use o formato: Instagram | https://instagram.com/'
+      );
+    }
+
+    const label = line.slice(0, separator).trim();
+    const rawUrl = line.slice(separator + 1).trim();
+    const url = safeHttpUrl(rawUrl);
+
+    if (!label || !url) {
+      throw new Error(
+        'Um dos links está inválido. Use um endereço completo começando com https://.'
+      );
+    }
+
+    links.push({
+      label: label.slice(0, 60),
+      url
+    });
+
+    if (links.length > 30) {
+      throw new Error('Você pode adicionar no máximo 30 links.');
+    }
+  }
+
+  return links;
+}
+
+function showAuth() {
+  $('home').classList.remove('hidden');
+  $('auth-section').classList.remove('hidden');
+  $('dashboard').classList.add('hidden');
+  $('public-section').classList.add('hidden');
+}
+
+function showDashboard(user) {
+  $('home').classList.add('hidden');
+  $('auth-section').classList.add('hidden');
+  $('dashboard').classList.remove('hidden');
+  $('public-section').classList.add('hidden');
+
+  $('account-email').textContent = user.email || '';
+}
+
+function showPublicSection() {
+  $('home').classList.add('hidden');
+  $('auth-section').classList.add('hidden');
+  $('dashboard').classList.add('hidden');
+  $('public-section').classList.remove('hidden');
+}
+
+function getProfileUrl(username) {
+  const url = new URL(window.location.href);
+  url.search = '';
+  url.hash = '';
+  url.searchParams.set('u', username);
+  return url.href;
+}
+
+async function loadMyProfile(user) {
+  const { data, error } = await supabaseClient
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (error) {
+    showMessage(
+      'profile-message',
+      'Não foi possível carregar seu perfil: ' + error.message
+    );
+    return;
+  }
+
+  if (data) {
+    $('username').value = data.username || '';
+    $('display-name').value = data.display_name || '';
+    $('bio').value = data.bio || '';
+    $('avatar-url').value = data.avatar_url || '';
+    $('background-url').value = data.background_url || '';
+    $('theme').value = data.theme || 'dark';
+
+    $('links').value = Array.isArray(data.links)
+      ? data.links.map(link => `${link.label} | ${link.url}`).join('\n')
+      : '';
+
+    updateShareArea(data.username);
+  }
+}
+
+function updateShareArea(username) {
+  if (!username) {
+    $('share-area').classList.add('hidden');
+    return;
+  }
+
+  const url = getProfileUrl(username);
+  $('share-url').value = url;
+  $('open-profile').href = url;
+  $('share-area').classList.remove('hidden');
+}
+
+async function createAccount() {
+  const email = $('email').value.trim();
+  const password = $('password').value;
+  const button = $('signup-button');
 
   if (!email || password.length < 6) {
-    message.textContent = 'Informe um e-mail válido e uma senha com pelo menos 6 caracteres.';
+    showMessage(
+      'auth-message',
+      'Informe um e-mail válido e uma senha de pelo menos 6 caracteres.'
+    );
     return;
   }
 
-  message.textContent = 'Criando sua conta...';
+  button.disabled = true;
+  showMessage('auth-message', 'Criando sua conta...');
 
-  const { data, error } = await supabaseClient.auth.signUp({
-    email,
-    password
-  });
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password
+    });
 
-  if (error) {
-    message.textContent = 'Erro: ' + error.message;
-    return;
+    if (error) throw error;
+
+    if (data.session && data.user) {
+      await startDashboard(data.user);
+      showMessage(
+        'profile-message',
+        'Conta criada! Agora escolha seu nome de usuário e salve o perfil.'
+      );
+    } else {
+      showMessage(
+        'auth-message',
+        'Cadastro iniciado! Se o projeto exigir confirmação, confira seu e-mail e depois entre na sua conta.'
+      );
+    }
+  } catch (error) {
+    showMessage('auth-message', 'Erro: ' + error.message);
+  } finally {
+    button.disabled = false;
   }
-
-  message.textContent = data.session
-    ? 'Conta criada! Você já está conectado.'
-    : 'Cadastro iniciado! Confira seu e-mail para confirmar a conta, se solicitado.';
 }
 
-async function gwLogin() {
-  const email = document.getElementById('gw-email').value.trim();
-  const password = document.getElementById('gw-password').value;
-  const message = document.getElementById('gw-message');
+async function login(event) {
+  if (event) event.preventDefault();
+
+  const email = $('email').value.trim();
+  const password = $('password').value;
+  const button = $('login-button');
 
   if (!email || !password) {
-    message.textContent = 'Preencha seu e-mail e sua senha.';
+    showMessage('auth-message', 'Preencha o e-mail e a senha.');
     return;
   }
 
-  message.textContent = 'Entrando...';
+  button.disabled = true;
+  showMessage('auth-message', 'Entrando...');
 
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
-  });
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) throw error;
+
+    await startDashboard(data.user);
+  } catch (error) {
+    showMessage('auth-message', 'Erro: ' + error.message);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+async function startDashboard(user) {
+  showDashboard(user);
+  await loadMyProfile(user);
+}
+
+async function saveProfile(event) {
+  event.preventDefault();
+
+  const { data: authData, error: authError } =
+    await supabaseClient.auth.getUser();
+
+  if (authError || !authData.user) {
+    showMessage(
+      'profile-message',
+      'Sua sessão expirou. Entre novamente.'
+    );
+    showAuth();
+    return;
+  }
+
+  const user = authData.user;
+  const username = $('username').value.trim().toLowerCase();
+  const displayName = $('display-name').value.trim() || 'Novo perfil';
+  const bio = $('bio').value.trim();
+  const avatarInput = $('avatar-url').value.trim();
+  const backgroundInput = $('background-url').value.trim();
+  const theme = $('theme').value;
+
+  if (!validUsername(username)) {
+    showMessage(
+      'profile-message',
+      'O nome de usuário deve ter de 3 a 30 caracteres e usar apenas letras, números, hífen ou sublinhado.'
+    );
+    return;
+  }
+
+  const avatarUrl = avatarInput ? safeHttpUrl(avatarInput) : null;
+  const backgroundUrl = backgroundInput
+    ? safeHttpUrl(backgroundInput)
+    : null;
+
+  if (avatarInput && !avatarUrl) {
+    showMessage('profile-message', 'O link da foto é inválido.');
+    return;
+  }
+
+  if (backgroundInput && !backgroundUrl) {
+    showMessage('profile-message', 'O link do fundo é inválido.');
+    return;
+  }
+
+  let links;
+
+  try {
+    links = parseLinks($('links').value);
+  } catch (error) {
+    showMessage('profile-message', error.message);
+    return;
+  }
+
+  const button = $('save-button');
+  button.disabled = true;
+  showMessage('profile-message', 'Salvando seu perfil...');
+
+  try {
+    const profile = {
+      id: user.id,
+      username,
+      display_name: displayName,
+      bio,
+      avatar_url: avatarUrl,
+      background_url: backgroundUrl,
+      theme,
+      links,
+      updated_at: new Date().toISOString()
+    };
+
+    const { error } = await supabaseClient
+      .from('profiles')
+      .upsert(profile, { onConflict: 'id' });
+
+    if (error) throw error;
+
+    updateShareArea(username);
+
+    showMessage(
+      'profile-message',
+      'Perfil salvo com sucesso! Seu link já está pronto para compartilhar.'
+    );
+  } catch (error) {
+    let message = error.message;
+
+    if (error.code === '23505') {
+      message = 'Esse nome de usuário já está em uso. Escolha outro.';
+    }
+
+    showMessage('profile-message', 'Não foi possível salvar: ' + message);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+function applyTheme(theme) {
+  const themes = {
+    dark: {
+      bg: '#10090d',
+      card: '#1b1117',
+      red: '#e51b43',
+      text: '#ffffff',
+      border: '#39212b'
+    },
+    purple: {
+      bg: '#100b19',
+      card: '#1c1428',
+      red: '#a855f7',
+      text: '#ffffff',
+      border: '#49305f'
+    },
+    blue: {
+      bg: '#08121e',
+      card: '#111e2d',
+      red: '#299dff',
+      text: '#ffffff',
+      border: '#254663'
+    },
+    green: {
+      bg: '#08150f',
+      card: '#122219',
+      red: '#2ed573',
+      text: '#ffffff',
+      border: '#27513a'
+    },
+    light: {
+      bg: '#f4f1f3',
+      card: '#ffffff',
+      red: '#d41442',
+      text: '#24171d',
+      border: '#dfd2d8'
+    }
+  };
+
+  const colors = themes[theme] || themes.dark;
+  const root = document.documentElement;
+
+  root.style.setProperty('--bg', colors.bg);
+  root.style.setProperty('--card', colors.card);
+  root.style.setProperty('--red', colors.red);
+  root.style.setProperty('--text', colors.text);
+  root.style.setProperty('--border', colors.border);
+}
+
+function renderPublicProfile(profile) {
+  showPublicSection();
+  applyTheme(profile.theme);
+
+  const container = $('public-profile');
+  container.replaceChildren();
+
+  const cover = document.createElement('div');
+  cover.className = 'profile-cover';
+
+  const background = profile.background_url
+    ? safeHttpUrl(profile.background_url)
+    : null;
+
+  if (background) {
+    cover.style.backgroundImage =
+      `linear-gradient(#0002,#0005),url("${background}")`;
+  }
+
+  const content = document.createElement('div');
+  content.className = 'profile-content';
+
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar';
+
+  const avatarUrl = profile.avatar_url
+    ? safeHttpUrl(profile.avatar_url)
+    : null;
+
+  if (avatarUrl) {
+    const img = document.createElement('img');
+    img.src = avatarUrl;
+    img.alt = 'Foto de perfil';
+    img.referrerPolicy = 'no-referrer';
+    avatar.appendChild(img);
+  } else {
+    avatar.textContent =
+      (profile.display_name || profile.username || 'G')
+        .slice(0, 1)
+        .toUpperCase();
+  }
+
+  const name = document.createElement('h2');
+  name.textContent = profile.display_name || profile.username;
+
+  const handle = document.createElement('p');
+  handle.textContent = '@' + profile.username;
+
+  const bio = document.createElement('p');
+  bio.textContent = profile.bio || '';
+  bio.style.whiteSpace = 'pre-wrap';
+
+  content.append(avatar, name, handle, bio);
+
+  const links = Array.isArray(profile.links) ? profile.links : [];
+
+  for (const item of links) {
+    const url = safeHttpUrl(item.url || '');
+    if (!url) continue;
+
+    const a = document.createElement('a');
+    a.className = 'profile-link';
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.textContent = item.label || 'Abrir link';
+    content.appendChild(a);
+  }
+
+  container.append(cover, content);
+  showMessage('public-error', '');
+}
+
+async function loadPublicProfile(username) {
+  showPublicSection();
+  showMessage('public-error', 'Carregando perfil...');
+
+  const { data, error } = await supabaseClient
+    .from('profiles')
+    .select('username,display_name,bio,avatar_url,background_url,theme,links')
+    .eq('username', username)
+    .maybeSingle();
 
   if (error) {
-    message.textContent = 'Erro: ' + error.message;
+    showMessage('public-error', 'Erro ao carregar o perfil: ' + error.message);
     return;
   }
 
-  message.textContent = 'Login realizado! Bem-vindo ao Gewählt.';
+  if (!data) {
+    showMessage(
+      'public-error',
+      'Perfil não encontrado. Confira o nome de usuário.'
+    );
+    return;
+  }
+
+  renderPublicProfile(data);
 }
-      </script>
+
+async function copyProfileLink() {
+  const input = $('share-url');
+
+  try {
+    await navigator.clipboard.writeText(input.value);
+    showMessage('profile-message', 'Link copiado! Agora é só compartilhar.');
+  } catch (_) {
+    input.focus();
+    input.select();
+
+    const copied = document.execCommand('copy');
+
+    showMessage(
+      'profile-message',
+      copied
+        ? 'Link copiado!'
+        : 'Selecione e copie o link manualmente.'
+    );
+  }
+}
+
+$('signup-button').addEventListener('click', createAccount);
+$('auth-form').addEventListener('submit', login);
+$('profile-form').addEventListener('submit', saveProfile);
+$('copy-button').addEventListener('click', copyProfileLink);
+
+$('top-login').addEventListener('click', () => {
+  showAuth();
+  $('auth-section').scrollIntoView({ behavior: 'smooth' });
+  $('email').focus();
+});
+
+$('logout-button').addEventListener('click', async () => {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    showMessage('profile-message', 'Erro ao sair: ' + error.message);
+    return;
+  }
+
+  window.location.href = window.location.pathname;
+});
+
+$('back-button').addEventListener('click', () => {
+  window.location.href = window.location.pathname;
+});
+
+async function initialize() {
+  const params = new URLSearchParams(window.location.search);
+  const publicUsername = params.get('u');
+
+  if (publicUsername) {
+    await loadPublicProfile(publicUsername);
+    return;
+  }
+
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    showMessage('auth-message', 'Erro ao verificar sessão: ' + error.message);
+    showAuth();
+    return;
+  }
+
+  if (data.session) {
+    await startDashboard(data.session.user);
+  } else {
+    showAuth();
+  }
+}
+
+initialize();
+</script>
+
+</body>
   </html>
