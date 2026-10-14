@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b090b">
+<title>Gewählt — Seu mundo, seu perfil</title>
+
+<style>
+:root {
+  --bg: #0b090b;
+  --card: #151115;
+  --red: #ff2348;
+  --text: #f7f2f4;
+  --muted: #a79ba2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at 50% 0%, #47101e 0%, transparent 45%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 7%;
+  border-bottom: 1px solid #ffffff10;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: var(--red);
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+button, .button {
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 13px 19px;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.primary {
+  background: var(--red);
+  color: white;
+  box-shadow: 0 0 24px #ff234826;
+}
+
+.secondary {
+  color: white;
+  background: #ffffff0a;
+  border: 1px solid #ffffff20;
+}
+
+main {
+  width: 100%;
+  max-width: 1050px;
+  margin: auto;
+  padding: 65px 22px;
+}
+
+.hero {
+  text-align: center;
+  padding: 35px 0 55px;
+}
+
+.badge {
+  display: inline-block;
+  border: 1px solid #ff23484a;
+  color: #ff6680;
+  background: #ff23480c;
+  border-radius: 30px;
+  padding: 9px 15px;
+  font-size: 12px;
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-size: clamp(38px, 8vw, 68px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  margin-bottom: 22px;
+}
+
+h1 span {
+  color: var(--red);
+  text-shadow: 0 0 35px #ff23483d;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 570px;
+  margin: 0 auto 28px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 27px;
+  margin-bottom: 12px;
+}
+
+.section-description {
+  text-align: center;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 17px;
+}
+
+.card {
+  background: linear-gradient(145deg, #191319, #100d10);
+  border: 1px solid #ffffff12;
+  border-radius: 17px;
+  padding: 24px;
+  transition: .2s;
+}
+
+.card:hover {
+  border-color: #ff234860;
+  transform: translateY(-3px);
+}
+
+.icon {
+  font-size: 28px;
+  margin-bottom: 18px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.preview {
+  margin-top: 55px;
+  padding: 27px;
+  border: 1px solid #ffffff12;
+  background: #ffffff05;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff2348, #380b18);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 15px;
+  font-size: 30px;
+  font-weight: 900;
+  box-shadow: 0 0 30px #ff234825;
+}
+
+.preview p {
+  color: var(--muted);
+  margin: 9px 0 20px;
+  font-size: 14px;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.socials span {
+  background: #ffffff0a;
+  border: 1px solid #ffffff12;
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+footer {
+  text-align: center;
+  border-top: 1px solid #ffffff10;
+  padding: 25px 15px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 650px) {
+  header {
+    padding: 19px 5%;
+  }
+
+  nav {
+    gap: 10px;
+  }
+
+  nav a {
+    display: none;
+  }
+
+  nav .button {
+    padding: 11px 13px;
+    font-size: 12px;
+  }
+
+  main {
+    padding: 48px 18px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 22px;
+  }
+
+  h1 {
+    letter-spacing: -1px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">GEWÄHLT<span>.</span></div>
+
+  <nav>
+    <a href="#recursos">Recursos</a>
+    <a href="#exemplo">Exemplo</a>
+    <button class="primary" onclick="alert('O cadastro será ativado na próxima etapa!')">
+      Criar meu perfil
+    </button>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="badge">✦ SEU ESPAÇO. SUA IDENTIDADE.</div>
+
+    <h1>Seu mundo.<br>Sua página.<br><span>Suas regras.</span></h1>
+
+    <p class="description">
+      Reúna suas redes sociais, grupos, músicas e muito mais
+      em um perfil único. Personalize cada detalhe e compartilhe
+      sua identidade com o mundo.
+    </p>
+
+    <div class="actions">
+      <button class="primary"
+        onclick="alert('Vamos construir o sistema de cadastro juntos!')">
+        ✦ Quero criar meu perfil
+      </button>
+
+      <a class="button secondary" href="#recursos">
+        Conhecer a plataforma
+      </a>
+    </div>
+  </section>
+
+  <section id="recursos">
+    <h2 class="section-title">Muito além de um link</h2>
+
+    <p class="section-description">
+      Crie uma página com a sua personalidade.
+      Você escolhe como ela vai ser.
+    </p>
+
+    <div class="cards">
+
+      <article class="card">
+        <div class="icon">🎨</div>
+        <h3>Personalização total</h3>
+        <p>
+          Escolha cores, imagens, fundos, fontes e efeitos
+          para criar um perfil com a sua identidade.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">🔗</div>
+        <h3>Todas as suas redes</h3>
+        <p>
+          Divulgue TikTok, Kwai, Instagram, WhatsApp,
+          Discord, Telegram e outros links.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">🎵</div>
+        <h3>Música e galeria</h3>
+        <p>
+          Deixe sua página mais pessoal com músicas,
+          imagens e outros elementos visuais.
+        </p>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="exemplo" class="preview">
+    <div class="avatar">G</div>
+
+    <h2>SeuNome</h2>
+
+    <p>Seu espaço na internet. Do seu jeito.</p>
+
+    <div class="socials">
+      <span>♪ Música</span>
+      <span>▶ TikTok</span>
+      <span>✉ WhatsApp</span>
+      <span>🎮 Discord</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GEWÄHLT © 2026 — Sua identidade, suas regras.
+</footer>
+
+</body>
+  </html>
